@@ -13,8 +13,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Entity(repositoryClass: UserRepository::class, readOnly: false)]
 #[ApiResource(shortName: 'user')]
-class UserEntity implements UserInterface
+class User implements UserInterface
 {
+    public function __construct(array $data = [])
+    {
+        $this->twitchUsername = $data['login'];
+        $this->twitchId = $data['user_id'];
+    }
 
     #[
         Id,
@@ -24,14 +29,20 @@ class UserEntity implements UserInterface
     private int $id;
 
     #[Column(name: 'twitch_id', type: 'string', nullable: true)]
-    private ?string $twitchId;
+    private string $twitchId;
+
+    #[Column(name: 'twitch_username', type: 'string', nullable: true)]
+    private string $twitchUsername;
+
+    #[Column(name: 'twitch_access_token', type: 'string', nullable: true)]
+    private ?string $twitchAccessToken;
 
     #[Column(name: 'email', type: 'string', nullable: false)]
     private ?string $email;
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return array_unique(['ROLE_USER']);
     }
 
     public function getPassword()
@@ -49,9 +60,9 @@ class UserEntity implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
-        // TODO: Implement getUsername() method.
+        return $this->twitchUsername;
     }
 
     public function __call(string $name, array $arguments)
@@ -69,29 +80,47 @@ class UserEntity implements UserInterface
 
     /**
      * @param int $id
-     * @return UserEntity
+     * @return User
      */
-    public function setId(int $id): UserEntity
+    public function setId(int $id): User
     {
         $this->id = $id;
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getTwitchId(): ?string
+    public function getTwitchId(): string
     {
         return $this->twitchId;
     }
 
     /**
-     * @param string|null $twitchId
-     * @return UserEntity
+     * @param string $twitchId
+     * @return User
      */
-    public function setTwitchId(?string $twitchId): UserEntity
+    public function setTwitchId(string $twitchId): User
     {
         $this->twitchId = $twitchId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTwitchAccessToken(): ?string
+    {
+        return $this->twitchAccessToken;
+    }
+
+    /**
+     * @param string|null $twitchAccessToken
+     * @return User
+     */
+    public function setTwitchAccessToken(?string $twitchAccessToken): User
+    {
+        $this->twitchAccessToken = $twitchAccessToken;
         return $this;
     }
 
@@ -105,9 +134,9 @@ class UserEntity implements UserInterface
 
     /**
      * @param string|null $email
-     * @return UserEntity
+     * @return User
      */
-    public function setEmail(?string $email): UserEntity
+    public function setEmail(?string $email): User
     {
         $this->email = $email;
         return $this;
