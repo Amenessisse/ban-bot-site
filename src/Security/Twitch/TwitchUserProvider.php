@@ -2,7 +2,7 @@
 
 namespace App\Security\Twitch;
 
-use App\Entity\User;
+use App\Entity\UserTwitch;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -53,7 +53,7 @@ class TwitchUserProvider implements UserProviderInterface
      * @throws TransportExceptionInterface
      * @throws DecodingExceptionInterface
      */
-    public function loadUserByCode(string $code): User
+    public function loadUserByCode(string $code): UserTwitch
     {
 
         $urlLoginCheck = $this->urlGenerator->generate(
@@ -85,7 +85,7 @@ class TwitchUserProvider implements UserProviderInterface
 
         $user = $this->userRepository->findOneBy(['twitchId' => $validateData->toArray()['user_id']]);
 
-        if (! $user instanceof User) {
+        if (! $user instanceof UserTwitch) {
             $dataUser = $this->apiTwitch->request(method: 'GET', url: 'users', options: [
                 'auth_bearer' => $token,
                 'headers' => [
@@ -93,14 +93,14 @@ class TwitchUserProvider implements UserProviderInterface
                 ],
             ]);
 
-            $user = new User($dataUser->toArray()['data'][0]);
+            $user = new UserTwitch($dataUser->toArray()['data'][0]);
 
             $this->entityManager->persist($user);
 
         }
 
-        $user->setTwitchAccessToken($token);
-        $user->setTwitchRefreshToken($refreshToken);
+        $user->setAccessToken($token);
+        $user->setRefreshToken($refreshToken);
         $this->entityManager->flush();
 
         return $user;
@@ -113,16 +113,16 @@ class TwitchUserProvider implements UserProviderInterface
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
-        if (! $user instanceof User && $user->getTwitchAccessToken() !== null) {
+        if (! $user instanceof UserTwitch && $user->getAccessToken() !== null) {
             $reponse = $this->identityTwitch->request(
                 method: 'GET',
                 url: 'oauth2/validate',
-                options: ['auth_bearer' => $user->getTwitchAccessToken()]
+                options: ['auth_bearer' => $user->getAccessToken()]
             );
 
-            if ($reponse->getStatusCode() === Response::HTTP_OK && $user->getTwitchRefreshToken() !== null) {
+            if ($reponse->getStatusCode() === Response::HTTP_OK && $user->getRefreshToken() !== null) {
                 $dataToken = $this->identityTwitch->request(method: 'POST', url: 'oauth2/token', options: [
                     'headers' => [
                         'Accept' => 'application/json'
@@ -131,15 +131,15 @@ class TwitchUserProvider implements UserProviderInterface
                         'client_id' => $this->twitchId,
                         'client_secret' => $this->twitchSecret,
                         'grant_type' => 'refresh_token',
-                        'refresh_token' => $user->getTwitchRefreshToken(),
+                        'refresh_token' => $user->getRefreshToken(),
                     ],
                 ]);
 
                 $token = $dataToken->toArray()['access_token'];
                 $refreshToken = $dataToken->toArray()['refresh_token'];
 
-                $user->setTwitchAccessToken($token);
-                $user->setTwitchRefreshToken($refreshToken);
+                $user->setAccessToken($token);
+                $user->setRefreshToken($refreshToken);
                 $this->entityManager->flush();
             }
         }
@@ -149,14 +149,14 @@ class TwitchUserProvider implements UserProviderInterface
 
     public function supportsClass(string $class): bool
     {
-        return User::class === $class || is_subclass_of($class, User::class);
+        return UserTwitch::class === $class || is_subclass_of($class, UserTwitch::class);
     }
 
     /**
      * @throws DecodingExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function loadUserByUsername(string $username): UserInterface|User
+    public function loadUserByUsername(string $username): UserInterface|UserTwitch
     {
         return self::loadUserByCode($username);
     }

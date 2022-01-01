@@ -27,6 +27,10 @@ services:
     App\Controller\TwitchController:
         $twitchDomain: '%env(TWITCH_ID_URI)%'
         $twitchId: '%env(TWITCH_ID)%'
+        $twitchScope: '%env(TWITCH_API_SCOPE)%'
+
+    App\Controller\HomePageController:
+        $twitchId: '%env(TWITCH_ID)%'
 
     App\Security\Twitch\TwitchUserProvider:
         $twitchId: '%env(TWITCH_ID)%'

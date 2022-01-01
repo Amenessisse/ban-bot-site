@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\UserTwitch;
 use App\Security\Twitch\TwitchUserProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
@@ -34,7 +34,7 @@ class TwitchAuthenticator extends AbstractAuthenticator
 
         if ($code !== null) {
             return new SelfValidatingPassport(
-                new UserBadge($code, function () use ($code): UserInterface {
+                new UserBadge($code, function () use ($code): UserTwitch {
                     return $this->twitchUserProvider->loadUserByCode($code);
                 })
             );
