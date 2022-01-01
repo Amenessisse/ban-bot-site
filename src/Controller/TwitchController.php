@@ -22,21 +22,34 @@ class TwitchController extends AbstractController
         $this->twitchId = $twitchId;
     }
 
-    #[Route('/login/twitch', name: 'twitch_login')]
-    public function index(#[CurrentUser] ?User $user, CsrfTokenManagerInterface $csrfToken): RedirectResponse {
-        if ($user === null) {
-            $urlDashboard = $this->generateUrl(route: 'dashboard',referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
+    #[Route('/login/twitch', name: 'app_twitch_login')]
+    public function index(#[CurrentUser] ?User $user, CsrfTokenManagerInterface $csrfToken): RedirectResponse
+    {
+        if (! $user instanceof User) {
+            $urlLoginCheck = $this->generateUrl(route: 'app_twitch_login_check',referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
 
             return new RedirectResponse(
-                url: $this->twitchDomain .
+                url: $this->twitchDomain . 'oauth2/authorize' .
                 '?client_id=' . $this->twitchId .
-                '&redirect_uri=' . $urlDashboard .
+                '&redirect_uri=' . $urlLoginCheck .
                 '&response_type=code' .
                 '&scope=user:read:email' .
                 '&state=' . $csrfToken->getToken('twitch_token_csrf')
             );
         }
 
-        return new RedirectResponse('home_page');
+        return $this->redirectToRoute('dashboard');
+    }
+
+    #[Route('/login/check', name: 'app_twitch_login_check')]
+    public function loginCheck(): RedirectResponse
+    {
+        return $this->redirectToRoute('dashboard');
+    }
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): RedirectResponse
+    {
+        return $this->redirectToRoute('home_page');
     }
 }

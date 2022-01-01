@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -11,14 +10,19 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @method string getUserIdentifier()
+ */
 #[Entity(repositoryClass: UserRepository::class, readOnly: false)]
 #[ApiResource(shortName: 'user')]
 class User implements UserInterface
 {
+    /** @param array<string, string> $data */
     public function __construct(array $data = [])
     {
         $this->twitchUsername = $data['login'];
-        $this->twitchId = $data['user_id'];
+        $this->twitchId = $data['id'];
+        $this->twitchEmail= $data['email'];
     }
 
     #[
@@ -27,6 +31,9 @@ class User implements UserInterface
         GeneratedValue(strategy: 'IDENTITY'),
     ]
     private int $id;
+
+    #[Column(name: 'twitch_email', type: 'string', nullable: false)]
+    private string $twitchEmail;
 
     #[Column(name: 'twitch_id', type: 'string', nullable: true)]
     private string $twitchId;
@@ -37,8 +44,68 @@ class User implements UserInterface
     #[Column(name: 'twitch_access_token', type: 'string', nullable: true)]
     private ?string $twitchAccessToken;
 
-    #[Column(name: 'email', type: 'string', nullable: false)]
-    private ?string $email;
+    #[Column(name: 'twitch_refresh_token', type: 'string', nullable: true)]
+    private ?string $twitchRefreshToken;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getTwitchEmail(): string
+    {
+        return $this->twitchEmail;
+    }
+
+    public function setTwitchEmail(string $twitchEmail): void
+    {
+        $this->twitchEmail = $twitchEmail;
+    }
+
+    public function getTwitchId(): string
+    {
+        return $this->twitchId;
+    }
+
+    public function setTwitchId(mixed $twitchId): void
+    {
+        $this->twitchId = $twitchId;
+    }
+
+    public function getTwitchUsername(): string
+    {
+        return $this->twitchUsername;
+    }
+
+    public function setTwitchUsername(mixed $twitchUsername): void
+    {
+        $this->twitchUsername = $twitchUsername;
+    }
+
+    public function getTwitchAccessToken(): ?string
+    {
+        return $this->twitchAccessToken;
+    }
+
+    public function setTwitchAccessToken(?string $twitchAccessToken): void
+    {
+        $this->twitchAccessToken = $twitchAccessToken;
+    }
+
+    public function getTwitchRefreshToken(): ?string
+    {
+        return $this->twitchRefreshToken;
+    }
+
+    public function setTwitchRefreshToken(?string $twitchRefreshToken): void
+    {
+        $this->twitchRefreshToken = $twitchRefreshToken;
+    }
 
     public function getRoles()
     {
@@ -68,77 +135,5 @@ class User implements UserInterface
     public function __call(string $name, array $arguments)
     {
         // TODO: Implement @method string getUserIdentifier()
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     * @return User
-     */
-    public function setId(int $id): User
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTwitchId(): string
-    {
-        return $this->twitchId;
-    }
-
-    /**
-     * @param string $twitchId
-     * @return User
-     */
-    public function setTwitchId(string $twitchId): User
-    {
-        $this->twitchId = $twitchId;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTwitchAccessToken(): ?string
-    {
-        return $this->twitchAccessToken;
-    }
-
-    /**
-     * @param string|null $twitchAccessToken
-     * @return User
-     */
-    public function setTwitchAccessToken(?string $twitchAccessToken): User
-    {
-        $this->twitchAccessToken = $twitchAccessToken;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string|null $email
-     * @return User
-     */
-    public function setEmail(?string $email): User
-    {
-        $this->email = $email;
-        return $this;
     }
 }

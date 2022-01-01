@@ -25,9 +25,9 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Controller\TwitchController:
-        $twitchDomain: '%env(TWITCH_DOMAIN)%'
+        $twitchDomain: '%env(TWITCH_ID_URI)%'
         $twitchId: '%env(TWITCH_ID)%'
 
-    App\Service\Twitch\TwitchUserProvider:
+    App\Security\Twitch\TwitchUserProvider:
         $twitchId: '%env(TWITCH_ID)%'
         $twitchSecret: '%env(TWITCH_SECRET)%'

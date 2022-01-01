@@ -6,16 +6,19 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        twitch:
+            id: App\Security\Twitch\TwitchUserProvider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            pattern: ^/dashboard
-            stateless: true
+            pattern: ^/
             custom_authenticator: App\Security\TwitchAuthenticator
-
+            provider: twitch
+            logout:
+                path: app_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

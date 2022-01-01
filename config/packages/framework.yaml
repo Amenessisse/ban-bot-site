@@ -6,8 +6,10 @@ framework:
 
     http_client:
         scoped_clients:
-            twitch_api:
-                base_uri: '%env(TWITCH_BASE_URI)%'
+            identity_twitch:
+                base_uri: '%env(TWITCH_ID_URI)%'
+            api_twitch:
+                base_uri: '%env(TWITCH_API_URI)%'
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
