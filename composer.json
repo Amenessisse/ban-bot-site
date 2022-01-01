@@ -15,6 +15,7 @@
         "doctrine/orm": "^2.9",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.3",
+        "squizlabs/php_codesniffer": "^3.6",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "*",
         "symfony/console": "*",
