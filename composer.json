@@ -92,7 +92,7 @@
         "phpstan/phpstan-doctrine": "^0.12.44",
         "phpstan/phpstan-strict-rules": "^0.12.11",
         "phpstan/phpstan-symfony": "^0.12.44",
-        "symfony/stopwatch": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "symfony/stopwatch": "*",
+        "symfony/web-profiler-bundle": "*"
     }
 }
