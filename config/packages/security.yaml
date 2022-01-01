@@ -29,4 +29,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/login, roles: PUBLIC_ACCESS }
+         - { path: ^/api, roles: API_ACCESS }
          - { path: ^/dashboard, roles: ROLE_USER }
