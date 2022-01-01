@@ -26,7 +26,10 @@ class TwitchController extends AbstractController
     public function index(#[CurrentUser] ?User $user, CsrfTokenManagerInterface $csrfToken): RedirectResponse
     {
         if (! $user instanceof User) {
-            $urlLoginCheck = $this->generateUrl(route: 'app_twitch_login_check',referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
+            $urlLoginCheck = $this->generateUrl(
+                route: 'app_twitch_login_check',
+                referenceType: UrlGeneratorInterface::ABSOLUTE_URL
+            );
 
             return new RedirectResponse(
                 url: $this->twitchDomain . 'oauth2/authorize' .

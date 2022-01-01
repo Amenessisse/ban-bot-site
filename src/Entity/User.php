@@ -22,7 +22,7 @@ class User implements UserInterface
     {
         $this->twitchUsername = $data['login'];
         $this->twitchId = $data['id'];
-        $this->twitchEmail= $data['email'];
+        $this->twitchEmail = $data['email'];
     }
 
     #[

@@ -10,7 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -53,7 +56,10 @@ class TwitchUserProvider implements UserProviderInterface
     public function loadUserByCode(string $code): User
     {
 
-        $urlLoginCheck = $this->urlGenerator->generate(name: 'app_twitch_login_check', referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
+        $urlLoginCheck = $this->urlGenerator->generate(
+            name: 'app_twitch_login_check',
+            referenceType: UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         $dataToken = $this->identityTwitch->request(method: 'POST', url: 'oauth2/token', options: [
             'headers' => [
@@ -71,7 +77,11 @@ class TwitchUserProvider implements UserProviderInterface
         $token = $dataToken->toArray()['access_token'];
         $refreshToken = $dataToken->toArray()['refresh_token'];
 
-        $validateData = $this->identityTwitch->request(method: 'GET', url: 'oauth2/validate', options: ['auth_bearer' => $token]);
+        $validateData = $this->identityTwitch->request(
+            method: 'GET',
+            url: 'oauth2/validate',
+            options: ['auth_bearer' => $token]
+        );
 
         $user = $this->userRepository->findOneBy(['twitchId' => $validateData->toArray()['user_id']]);
 
@@ -96,10 +106,21 @@ class TwitchUserProvider implements UserProviderInterface
         return $user;
     }
 
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     */
     public function refreshUser(UserInterface $user)
     {
         if (! $user instanceof User && $user->getTwitchAccessToken() !== null) {
-            $reponse = $this->identityTwitch->request(method: 'GET', url: 'oauth2/validate', options: ['auth_bearer' => $user->getTwitchAccessToken()]);
+            $reponse = $this->identityTwitch->request(
+                method: 'GET',
+                url: 'oauth2/validate',
+                options: ['auth_bearer' => $user->getTwitchAccessToken()]
+            );
 
             if ($reponse->getStatusCode() === Response::HTTP_OK && $user->getTwitchRefreshToken() !== null) {
                 $dataToken = $this->identityTwitch->request(method: 'POST', url: 'oauth2/token', options: [
@@ -131,9 +152,13 @@ class TwitchUserProvider implements UserProviderInterface
         return User::class === $class || is_subclass_of($class, User::class);
     }
 
-    public function loadUserByUsername(string $username)
+    /**
+     * @throws DecodingExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function loadUserByUsername(string $username): UserInterface|User
     {
-        // TODO: Implement loadUserByUsername() method.
+        return self::loadUserByCode($username);
     }
 
     public function __call(string $name, array $arguments)
