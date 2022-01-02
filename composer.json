@@ -16,14 +16,17 @@
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.3",
         "squizlabs/php_codesniffer": "^3.6",
-        "symfony/apache-pack": "^1.0",
+        "symfony/apache-pack": "*",
         "symfony/asset": "*",
         "symfony/console": "*",
+        "symfony/debug-bundle": "*",
         "symfony/dotenv": "*",
         "symfony/expression-language": "*",
         "symfony/flex": "*",
         "symfony/framework-bundle": "*",
+        "symfony/http-client": "*",
         "symfony/intl": "*",
+        "symfony/monolog-bundle": "*",
         "symfony/property-access": "*",
         "symfony/property-info": "*",
         "symfony/proxy-manager-bridge": "*",
@@ -88,6 +91,8 @@
         "phpstan/phpstan-deprecation-rules": "^0.12.6",
         "phpstan/phpstan-doctrine": "^0.12.44",
         "phpstan/phpstan-strict-rules": "^0.12.11",
-        "phpstan/phpstan-symfony": "^0.12.44"
+        "phpstan/phpstan-symfony": "^0.12.44",
+        "symfony/stopwatch": "*",
+        "symfony/web-profiler-bundle": "*"
     }
 }

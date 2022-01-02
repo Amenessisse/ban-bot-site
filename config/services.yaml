@@ -23,3 +23,15 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Controller\TwitchController:
+        $twitchDomain: '%env(TWITCH_ID_URI)%'
+        $twitchId: '%env(TWITCH_ID)%'
+        $twitchScope: '%env(TWITCH_API_SCOPE)%'
+
+    App\Controller\HomePageController:
+        $twitchId: '%env(TWITCH_ID)%'
+
+    App\Security\Twitch\TwitchUserProvider:
+        $twitchId: '%env(TWITCH_ID)%'
+        $twitchSecret: '%env(TWITCH_SECRET)%'

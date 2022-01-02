@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bienvenue : {{ app.user.userIdentifier }}</h1>
+    <h2>Liste des utilisateurs bannis :</h2>
+    <table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Id :</th>
+        <th>Login :</th>
+        <th>Pseudo :</th>
+        <th>Fin du ban le :</th>
+        <th>Raison :</th>
+        <th>Banni par :</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for userblock in usersBlocks %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ userblock.user_id }}</td>
+                <td>{{ userblock.user_login }}</td>
+                <td>{{ userblock.user_name }}</td>
+                <td>{{ userblock.expires_at }}</td>
+                <td>{{ userblock.reason }}</td>
+                <td>{{ userblock.moderator_name }}</td>
+            </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
