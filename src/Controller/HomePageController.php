@@ -14,7 +14,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class HomePageController extends AbstractController
 {
-
     private string $twitchId;
 
     public function __construct(string $twitchId)
@@ -52,5 +51,4 @@ class HomePageController extends AbstractController
             'usersBlocks' => $usersBlocks['data'],
         ]);
     }
-
 }

@@ -5,18 +5,18 @@
     <h2>Liste des utilisateurs bannis :</h2>
     <table>
     <thead>
-    <tr>
-        <th>#</th>
-        <th>Id :</th>
-        <th>Login :</th>
-        <th>Pseudo :</th>
-        <th>Fin du ban le :</th>
-        <th>Raison :</th>
-        <th>Banni par :</th>
-    </tr>
+        <tr>
+            <th>#</th>
+            <th>Id :</th>
+            <th>Login :</th>
+            <th>Pseudo :</th>
+            <th>Fin du ban le :</th>
+            <th>Raison :</th>
+            <th>Banni par :</th>
+        </tr>
     </thead>
     <tbody>
-    {% for userblock in usersBlocks %}
+        {% for userblock in usersBlocks %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ userblock.user_id }}</td>
@@ -26,7 +26,8 @@
                 <td>{{ userblock.reason }}</td>
                 <td>{{ userblock.moderator_name }}</td>
             </tr>
-    {% endfor %}
+        {% endfor %}
     </tbody>
     </table>
+    <button id="button-bot-connect" data-username="{{ app.user.userIdentifier }}" data-token="{{ app.user.accessToken }}">Connexion au chat</button>
 {% endblock %}
