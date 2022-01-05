@@ -17,9 +17,14 @@ export function connection(target)
         channels: [
             target.dataset.username,
         ],
-        options: {debug: true, messagesLogLevel: "info"},
+        options: {
+            debug: true,
+            messagesLogLevel: "info",
+            skipUpdatingEmotesets: true,
+            skipMembership: true,
+        },
         connection: {
-            reconnect: false,
+            reconnect: true,
             secure: true
         },
     };
