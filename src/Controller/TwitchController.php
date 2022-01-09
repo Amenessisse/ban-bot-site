@@ -43,13 +43,13 @@ class TwitchController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('dashboard');
+        return $this->redirectToRoute('app_dashboard_index');
     }
 
     #[Route('/login/check', name: 'app_twitch_login_check')]
     public function loginCheck(): RedirectResponse
     {
-        return $this->redirectToRoute('dashboard');
+        return $this->redirectToRoute('app_dashboard_index');
     }
 
     #[Route('/logout', name: 'app_logout')]

@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for userblock in usersBlocks %}
+        {% for userblock in usersBlocks | sort((a, b) => a.user_login <=> b.user_login) %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ userblock.user_id }}</td>
