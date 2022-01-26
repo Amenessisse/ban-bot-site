@@ -1,40 +1,38 @@
-import 'tmi.js';
+import * as tmi from 'tmi.js';
 
-function onConnectedHandler(address, port)
-{
-    console.log(` * Connected to ${address}:${port}`);
+function onConnectedHandler(address, port) {
+  console.log(` * Connected to ${address}:${port}`);
 }
 
-export function connection(target)
-{
-    // Define configuration options
-    let opts;
-    opts = {
-        identity: {
-            username: target.dataset.username,
-            password: 'oauth:' + target.dataset.token,
-        },
-        channels: [
-            target.dataset.username,
-        ],
-        options: {
-            debug: true,
-            messagesLogLevel: "info",
-            skipUpdatingEmotesets: true,
-            skipMembership: true,
-        },
-        connection: {
-            reconnect: true,
-            secure: true
-        },
-    };
+export default function connection(target) {
+  // Define configuration options
 
-    // Create a client with our options
-    const client = new tmi.client(opts);
+  const opts = {
+    identity: {
+      username: target.dataset.username,
+      password: `oauth:${target.dataset.token}`,
+    },
+    channels: [
+      target.dataset.username,
+    ],
+    options: {
+      debug: true,
+      messagesLogLevel: 'info',
+      skipUpdatingEmotesets: true,
+      skipMembership: true,
+    },
+    connection: {
+      reconnect: true,
+      secure: true,
+    },
+  };
 
-    // Register our event handlers (defined below)
-    client.on('connected', onConnectedHandler);
+  // Create a client with our options
+  const client = new tmi.client(opts);
 
-    // Connect to Twitch:
-    client.connect().catch(console.error);
+  // Register our event handlers (defined below)
+  client.on('connected', onConnectedHandler);
+
+  // Connect to Twitch:
+  client.connect().catch(console.error);
 }

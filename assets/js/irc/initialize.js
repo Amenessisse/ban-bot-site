@@ -1,5 +1,5 @@
-import {initializeButtonBotConnect} from "./action";
+import initializeButtonBotConnect from './action';
 
-document.addEventListener("DOMContentLoaded", () => {
-    initializeButtonBotConnect();
+document.addEventListener('DOMContentLoaded', () => {
+  initializeButtonBotConnect();
 });
