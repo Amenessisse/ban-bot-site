@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(33, 37, 41);
+}
+
 .btn-primary, .btn-primary:active, .btn-primary:visited {
     background-color: rgb(145, 71, 255) !important;
     border-color: rgb(145, 71, 255) !important;
