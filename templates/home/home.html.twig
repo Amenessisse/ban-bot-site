@@ -6,30 +6,19 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container text-white bg-dark">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eleventh navbar example">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">{{ app_name }}</a>
-                <div class="collapse navbar-collapse justify-content-md-end" id="navbarCollapse">
-                    <form class="d-flex">
-                        <a class="btn btn-primary" href="{{ path('app_twitch_login') }}" role="button">
-                            {% trans %}app.home.login{% endtrans %}
-                        </a>
-                    </form>
-                </div>
+    <div class="flex justify-center h-screen">
+        <div class="flex-col place-self-center space-y-7 text-center text-white">
+            <div>
+                <img class="w-full h-64" alt="logo bot ban hammer list" src="{{ asset('build/bot-logo.png') }}">
             </div>
-        </nav>
-    <main>
-        <div class="position-relative overflow-hidden p-md-5 text-center">
-            <div class="col-md-5 mx-auto my-5">
-                <img alt="logo bot ban hammer list" src="{{ asset('build/test_logo.png') }}">
-                <h1 class="display-4 fw-normal">{{ app_name }}</h1>
-                <p class="lead fw-normal">
-                    Le bot qui bannira pour vous.
-                </p>
+            <div>
+                <p>Hammerbot<br/>Le bot qui bannira pour vous</p>
             </div>
-            <div class="product-device shadow-sm d-none d-md-block"></div>
-            <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+            <div>
+                <a href="{{ path('app_twitch_login') }}" role="button">
+                    <button class="button-connexion">{% trans %}app.home.login{% endtrans %}</button>
+                </a>
+            </div>
         </div>
-    </main>
+    </div>
 {% endblock %}

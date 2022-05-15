@@ -1,15 +1,15 @@
 body {
-    background-color: rgb(33, 37, 41);
+    @apply bg-gray-800;
 }
 
-.btn-primary, .btn-primary:active, .btn-primary:visited {
-    background-color: rgb(145, 71, 255) !important;
-    border-color: rgb(145, 71, 255) !important;
-    color: white;
+.button-connexion {
+    @apply px-2 py-1 text-xs bg-purple-600 rounded;
 }
 
-.btn-primary:hover {
-    background-color: rgb(119, 44, 232) !important;
-    border-color: rgb(119, 44, 232) !important;
-    color: white;
+.button-connexion:hover {
+    @apply bg-purple-500;
+}
+
+.button-connexion:active {
+    @apply bg-purple-600;
 }

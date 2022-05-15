@@ -11,5 +11,8 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
+// Font Awesome
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 // script js
 import './js/irc/initialize';

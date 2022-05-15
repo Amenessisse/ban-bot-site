@@ -6,51 +6,58 @@
 {% endblock %}
 
 {% block body %}
-        <div class="flex h-screen">
-            <div class="basis-1/12 flex-row bg-gray-500 w-40 text-center">
-                <div class="bg-gray-800 w-full">
-                    <div>
-                        <img src="{{ asset('build/test_logo.png') }}" alt="logo">
-                    </div>
+    <div class="flex h-screen">
+        {# Menu #}
+        <div class="w-32 min-w-max bg-blue-gray-600">
+            {# Image top menu #}
+            <div class="flex justify-center bg-gray-800">
+                <img class="h-24 w-28" src="{{ asset('build/bot-logo.png') }}" alt="" />
+            </div>
+            {# List menu #}
+            <div>
+                <ul class="text-white">
+                    <li class="pl-2">Dashboard</li>
+                    <li class=" font-bold pl-2 bg-blue-gray-700 border-l-4 border-l-blue-400">Vos bannis</li>
+                    <li class="pl-2">Paramètres</li>
+                </ul>
+            </div>
+        </div>
+        <div class="w-full bg-blue-gray-100">
+            {# Barre info #}
+            <div class="bg-white shadow-sm grid grid-cols-2">
+                <div class="flex place-items-center place-content-start p-2">
+                    <p class="text-gray-400">Mis à jour le : 15/05/2022</p>
                 </div>
-                <div class="flex-col text-gray-900">
-                    <div class="my-6">Dashboard</div>
-                    <div class="my-6">Profile</div>
-                    <div class="my-6">Settings</div>
+                <div class="flex place-items-center place-content-end">
+                    <p class="text-gray-500 mr-2">{{ app.user.username }}</p>
+                    <img class="h-7 rounded-full mr-5" src="{{ userDatas['data'][0]['profile_image_url'] }}" alt="" />
                 </div>
             </div>
-            <div class="basis-11/12">
-                <div class="flex-row">test</div>
-                <div class="flex-row">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Id :</th>
-                            <th>Login :</th>
-                            <th>Pseudo :</th>
-                            <th>Fin du ban le :</th>
-                            <th>Raison :</th>
-                            <th>Banni par :</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+            {# Content #}
+            <div class="flex flex-col space-y-16 mt-14">
+                {# Barre de recherche #}
+                <div class="flex justify-center">
+                    <input class="bg-white shadow-inner rounded-full mr-10 text-center" style="width: 670px; height: 30px;" placeholder="Rechercher un utilisateur...">
+                </div>
+                {# List des bannis #}
+                <div class="flex place-items-center justify-center">
+                    <div class="grid gap-10 grid-cols-5 grid-flow-row columns-2">
                         {% for userblock in usersBlocks | sort((a, b) => a.user_login <=> b.user_login) %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ userblock.user_id }}</td>
-                                <td>{{ userblock.user_login }}</td>
-                                <td>{{ userblock.user_name }}</td>
-                                <td>{{ userblock.expires_at }}</td>
-                                <td>{{ userblock.reason }}</td>
-                                <td>{{ userblock.moderator_name }}</td>
-                            </tr>
+                            <div class="drop-shadow">
+                                <div class="bg-white drop-shadow-sm flex place-items-center justify-between">
+                                    <p class="pl-2 font-bold text-gray-700">{{ userblock.user_name | length > 16 ? userblock.user_name  | slice(0,16) ~ '...' : userblock.user_name}}</p>
+                                    <i class="fa-solid fa-sm fa-rectangle-xmark text-red-600 pl-1 pr-2"></i>
+                                </div>
+                                <div class="bg-gray-50 pl-2 pr-2 text-gray-600">
+                                    <p>{{ userblock.user_id }}</p>
+                                </div>
+                            </div>
                         {% endfor %}
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 {#    <div class="content-page" id="app">#}
 {#        <div class="content tab-pane fade show active">#}
 {#            <section>#}

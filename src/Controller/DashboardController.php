@@ -37,7 +37,7 @@ class DashboardController extends AbstractController
             $usersBlocks = $apiTwitch->request(method: 'GET', url: 'moderation/banned', options: [
                 'auth_bearer' => $this->getUser()->getAccessToken(),
                 'headers' => [
-                    'Client-Id' => $this->twitchId
+                    'Client-Id' => $this->twitchId,
                 ],
                 'query' => [
                     'broadcaster_id' => $this->getUser()->getTwitchId(),
@@ -49,6 +49,16 @@ class DashboardController extends AbstractController
             $arraytest[] = $usersBlocks['data'];
             $cursor = $usersBlocks['pagination']['cursor'] ?? null;
         } while ($cursor !== null);
+
+        $userDatas =  $apiTwitch->request('GET', 'users', options: [
+            'auth_bearer' => $this->getUser()->getaccessToken(),
+            'headers' => [
+                'Client-Id' => $this->twitchId,
+            ],
+            'query' => [
+                'login' => $this->getUser()->getLogin()
+            ],
+        ])->toArray();
 
         $arraymerge = [];
         foreach ($arraytest as $array) {
@@ -62,6 +72,7 @@ class DashboardController extends AbstractController
 
         return $this->render('dashboard/dashboard.html.twig', [
             'usersBlocks' => $arraymerge,
+            'userDatas' => $userDatas,
         ]);
     }
 }
