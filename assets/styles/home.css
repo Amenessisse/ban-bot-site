@@ -1,0 +1,15 @@
+body {
+    @apply bg-gray-800;
+}
+
+.button-connexion {
+    @apply px-2 py-1 text-xs bg-purple-600 rounded;
+}
+
+.button-connexion:hover {
+    @apply bg-purple-500;
+}
+
+.button-connexion:active {
+    @apply bg-purple-600;
+}

@@ -1,5 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
 {% block body %}
-<a href="{{ path('app_twitch_login') }}">Se connecter</a>
+    <div class="flex justify-center h-screen">
+        <div class="flex-col place-self-center space-y-7 text-center text-white">
+            <div>
+                <img class="w-full h-64" alt="logo bot ban hammer list" src="{{ asset('build/bot-logo.png') }}">
+            </div>
+            <div>
+                <p>Hammerbot<br/>Le bot qui bannira pour vous</p>
+            </div>
+            <div>
+                <a href="{{ path('app_twitch_login') }}" role="button">
+                    <button class="button-connexion">{% trans %}app.home.login{% endtrans %}</button>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
