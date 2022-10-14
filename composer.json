@@ -88,11 +88,11 @@
     },
     "require-dev": {
         "phpstan/extension-installer": "1.1.0",
-        "phpstan/phpstan": "^0.12.99",
-        "phpstan/phpstan-deprecation-rules": "^0.12.6",
-        "phpstan/phpstan-doctrine": "^0.12.44",
-        "phpstan/phpstan-strict-rules": "^0.12.11",
-        "phpstan/phpstan-symfony": "^0.12.44",
+        "phpstan/phpstan": "0.12.99",
+        "phpstan/phpstan-deprecation-rules": "0.12.6",
+        "phpstan/phpstan-doctrine": "0.12.44",
+        "phpstan/phpstan-strict-rules": "0.12.11",
+        "phpstan/phpstan-symfony": "0.12.44",
         "symfony/stopwatch": "*",
         "symfony/web-profiler-bundle": "*"
     }
