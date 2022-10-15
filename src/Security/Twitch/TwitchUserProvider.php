@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security\Twitch;
 
 use App\Entity\UserTwitch;
@@ -17,9 +19,6 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-/**
- * @method UserInterface loadUserByIdentifier(string $identifier)
- */
 class TwitchUserProvider implements UserProviderInterface
 {
     private HttpClientInterface $apiTwitch;
@@ -55,7 +54,6 @@ class TwitchUserProvider implements UserProviderInterface
      */
     public function loadUserByCode(string $code): UserTwitch
     {
-
         $urlLoginCheck = $this->urlGenerator->generate(
             name: 'app_twitch_login_check',
             referenceType: UrlGeneratorInterface::ABSOLUTE_URL
@@ -96,7 +94,6 @@ class TwitchUserProvider implements UserProviderInterface
             $user = new UserTwitch($dataUser->toArray()['data'][0]);
 
             $this->entityManager->persist($user);
-
         }
 
         $user->setAccessToken($token);
@@ -156,13 +153,8 @@ class TwitchUserProvider implements UserProviderInterface
      * @throws DecodingExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function loadUserByUsername(string $username): UserInterface|UserTwitch
+    public function loadUserByIdentifier(string $identifier): UserInterface|UserTwitch
     {
-        return self::loadUserByCode($username);
-    }
-
-    public function __call(string $name, array $arguments)
-    {
-        // TODO: Implement @method UserInterface loadUserByIdentifier(string $identifier)
+        return self::loadUserByCode($identifier);
     }
 }
