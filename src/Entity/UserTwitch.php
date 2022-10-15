@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -17,8 +17,8 @@ class UserTwitch implements UserInterface
     /** @param array<string, string> $data */
     public function __construct(array $data = [])
     {
-        $this->email = $data['email'];
-        $this->login = $data['login'];
+        $this->email    = $data['email'];
+        $this->login    = $data['login'];
         $this->twitchId = $data['id'];
         $this->username = $data['display_name'];
     }
