@@ -1287,10 +1287,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:6.1.1":
-  version: 6.1.1
-  resolution: "@fortawesome/fontawesome-free@npm:6.1.1"
-  checksum: adb3c71e0d9e60488401a193cfd1925ad100935ae41c88d3969937b59c182289ecc6f8c0835f0a3fb9cc215348a047a39536e918247381774baf7dcebef94b64
+"@fortawesome/fontawesome-free@npm:6.2.0":
+  version: 6.2.0
+  resolution: "@fortawesome/fontawesome-free@npm:6.2.0"
+  checksum: fd3fcc0a963b907110922b5ac0ca67633aea20b5034102a1f5d285830f7f7a27f9c9de0c4a30228ccd2579bd8f95581a1bbef9519c7b74632e7012d60dd57bb7
   languageName: node
   linkType: hard
 
@@ -7183,7 +7183,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@fortawesome/fontawesome-free": 6.1.1
+    "@fortawesome/fontawesome-free": 6.2.0
     "@popperjs/core": 2.11.6
     "@symfony/stimulus-bridge": 2.1.0
     "@symfony/webpack-encore": 1.8.2
