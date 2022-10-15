@@ -7243,7 +7243,7 @@ __metadata:
     tmi.js: 1.8.5
     vue: 2.6.14
     vue-loader: 15.9.8
-    vue-router: 3.5.4
+    vue-router: 3.6.5
     vue-template-compiler: 2.6.14
     vuex: 3.6.2
     webpack-notifier: 1.15.0
@@ -8313,10 +8313,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-router@npm:3.5.4":
-  version: 3.5.4
-  resolution: "vue-router@npm:3.5.4"
-  checksum: 0975860dc849e99935c2bf8dae8e1e2db036736c4d45d6aef2e6c8a111122f0ecbc0aa9a3d434982530d831eadde1c06cf27ca6e2b6a6c21b82f5fd2f25e028c
+"vue-router@npm:3.6.5":
+  version: 3.6.5
+  resolution: "vue-router@npm:3.6.5"
+  checksum: b014ba4cba6838a4a6b7a2352b18982c2fd8bbbd6287e09c510845895d28f1c141fefb88369d1875c0cb6c7336c8536f614c8d1f5ac1c8709d60b4f945c486fb
   languageName: node
   linkType: hard
 
