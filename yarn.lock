@@ -1301,12 +1301,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hotwired/stimulus-webpack-helpers@npm:^1.0.1":
+"@hotwired/stimulus-webpack-helpers@npm:^1.0.0, @hotwired/stimulus-webpack-helpers@npm:^1.0.1":
   version: 1.0.1
   resolution: "@hotwired/stimulus-webpack-helpers@npm:1.0.1"
   peerDependencies:
     "@hotwired/stimulus": ">= 3.0"
   checksum: 68d833f74fb90f2993c7baed6e542880c23416a129b50cadc00571102c782f6bdc8c68742ecdd668cc702aa0fafd8888f91098ed7dc43c12b2212fe5969ef6cd
+  languageName: node
+  linkType: hard
+
+"@hotwired/stimulus@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@hotwired/stimulus@npm:3.1.0"
+  checksum: 82d80b17aa8cd8b69e20da4cc86b768fd8c52d06b40c1606b92526fd405264a65c617d5c051445a5b91af05620ab4475b3c5adc2011ed8d787b4955f9e924845
   languageName: node
   linkType: hard
 
@@ -1400,38 +1407,6 @@ __metadata:
   version: 2.11.6
   resolution: "@popperjs/core@npm:2.11.6"
   checksum: 47fb328cec1924559d759b48235c78574f2d71a8a6c4c03edb6de5d7074078371633b91e39bbf3f901b32aa8af9b9d8f82834856d2f5737a23475036b16817f0
-  languageName: node
-  linkType: hard
-
-"@stimulus/core@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@stimulus/core@npm:2.0.0"
-  dependencies:
-    "@stimulus/mutation-observers": ^2.0.0
-  checksum: 28e33dfaf2db2e72b007f1798aa906d18080ca988c7f99919107d9a5456fcb2f7eef21f908232666b34070d975ce12f1922a20b2eded796b1bb937d7de7322cd
-  languageName: node
-  linkType: hard
-
-"@stimulus/multimap@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@stimulus/multimap@npm:2.0.0"
-  checksum: 0b2dbacb02f9ef2e1a0c873fb445cdd9443afe35e007218242ebfb49c99877e73a0c3e951151e3b69b1dd16cbae67fe8ef6eb19da3c64aad71864976347af6af
-  languageName: node
-  linkType: hard
-
-"@stimulus/mutation-observers@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@stimulus/mutation-observers@npm:2.0.0"
-  dependencies:
-    "@stimulus/multimap": ^2.0.0
-  checksum: b0fb739563d4944c09602b55a56fd3953d6efdb4a24a6a97a7400de0101cc63064c2daa612acd3f3af340d79815687ddd85bad700929647de29b4e9ca3ce10ba
-  languageName: node
-  linkType: hard
-
-"@stimulus/webpack-helpers@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@stimulus/webpack-helpers@npm:2.0.0"
-  checksum: 0ec66e238193533e61a8bee8fc868db776a446fb52f70bec5d65c398826ac443f64b541fd141e06c0505b2f03683df407a4b94d4429fcd3beebb37e2d74b575f
   languageName: node
   linkType: hard
 
@@ -7243,7 +7218,7 @@ __metadata:
     regenerator-runtime: 0.13.10
     sass: 1.55.0
     sass-loader: 13.1.0
-    stimulus: 2.0.0
+    stimulus: 3.1.0
     tailwindcss: 3.1.8
     tmi.js: 1.8.5
     vue: 2.7.13
@@ -7714,13 +7689,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stimulus@npm:2.0.0":
-  version: 2.0.0
-  resolution: "stimulus@npm:2.0.0"
+"stimulus@npm:3.1.0":
+  version: 3.1.0
+  resolution: "stimulus@npm:3.1.0"
   dependencies:
-    "@stimulus/core": ^2.0.0
-    "@stimulus/webpack-helpers": ^2.0.0
-  checksum: f72d8951c9e162514a7004367c5a26eba2fddcc59926e65d7308aa719582df8bf4dd79d6541579d8de1f8388e27f506cb6d77a14439a6fd6b78540c15af613e0
+    "@hotwired/stimulus": ^3.1.0
+    "@hotwired/stimulus-webpack-helpers": ^1.0.0
+  checksum: 468b511839ce112b8e5bca3234ff915f6a8f355677324a35496802d623d1226a63d9649d2119a03bc9aa78667a6149f4126f417c49f9242709dfb0efcfada188
   languageName: node
   linkType: hard
 
