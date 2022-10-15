@@ -1301,6 +1301,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hotwired/stimulus-webpack-helpers@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@hotwired/stimulus-webpack-helpers@npm:1.0.1"
+  peerDependencies:
+    "@hotwired/stimulus": ">= 3.0"
+  checksum: 68d833f74fb90f2993c7baed6e542880c23416a129b50cadc00571102c782f6bdc8c68742ecdd668cc702aa0fafd8888f91098ed7dc43c12b2212fe5969ef6cd
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.10.5":
   version: 0.10.7
   resolution: "@humanwhocodes/config-array@npm:0.10.7"
@@ -1426,16 +1435,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@symfony/stimulus-bridge@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@symfony/stimulus-bridge@npm:2.1.0"
+"@symfony/stimulus-bridge@npm:3.2.1":
+  version: 3.2.1
+  resolution: "@symfony/stimulus-bridge@npm:3.2.1"
   dependencies:
+    "@hotwired/stimulus-webpack-helpers": ^1.0.1
+    "@types/webpack-env": ^1.16.4
     acorn: ^8.0.5
     loader-utils: ^2.0.0
     schema-utils: ^3.0.0
   peerDependencies:
-    stimulus: ^2.0
-  checksum: 330059df395185417d054fdb6863d4213aa3b9f84454323184b8783d4c923867160b7793ea086036641c1854bd14bd84c0cc27a09a3c4fe7e9c745f208c877fb
+    "@hotwired/stimulus": ^3.0
+  checksum: f30b30099b36ff0447c3223863d72d3a03ffa12ddac4bf657e90ee3adaf9ffd29328e444ce8716c8ed1c81379552124ed9c0e6feb6ed4a654f35859806043ada
   languageName: node
   linkType: hard
 
@@ -1596,6 +1607,13 @@ __metadata:
   dependencies:
     source-map: ^0.6.1
   checksum: def36fd2c698a33d8f67f5e21aab926eb9bda2d7951eab544941e1feb1231f020ff1c210d840dcc0fc9f07b5d22ef8b566887ddec9753b8b9f7223cceaa70993
+  languageName: node
+  linkType: hard
+
+"@types/webpack-env@npm:^1.16.4":
+  version: 1.18.0
+  resolution: "@types/webpack-env@npm:1.18.0"
+  checksum: ecf4daa31cb37d474ac0ce058d83a3cadeb9881ca8107ae93c2299eaa9954943aae09b43e143c62ccbe4288a14db00c918c9debd707afe17c3998f873eaabc59
   languageName: node
   linkType: hard
 
@@ -7185,7 +7203,7 @@ __metadata:
   dependencies:
     "@fortawesome/fontawesome-free": 6.1.1
     "@popperjs/core": 2.11.6
-    "@symfony/stimulus-bridge": 2.1.0
+    "@symfony/stimulus-bridge": 3.2.1
     "@symfony/webpack-encore": 1.8.2
     autoprefixer: 10.4.12
     axios: 0.24.0
