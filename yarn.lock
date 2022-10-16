@@ -31,7 +31,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.19.3":
+"@babel/core@npm:7.19.3":
   version: 7.19.3
   resolution: "@babel/core@npm:7.19.3"
   dependencies:
@@ -1105,7 +1105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.19.4":
+"@babel/preset-env@npm:7.19.4":
   version: 7.19.4
   resolution: "@babel/preset-env@npm:7.19.4"
   dependencies:
@@ -7123,8 +7123,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@babel/core": ^7.19.3
-    "@babel/preset-env": ^7.19.4
+    "@babel/core": 7.19.3
+    "@babel/preset-env": 7.19.4
     "@fortawesome/fontawesome-free": 6.2.0
     "@popperjs/core": 2.11.6
     "@symfony/stimulus-bridge": 3.2.1
@@ -7153,7 +7153,7 @@ __metadata:
     vue-router: 4.1.5
     vue-template-compiler: 2.7.13
     vuex: 4.1.0
-    webpack-cli: ^4.10.0
+    webpack-cli: 4.10.0
     webpack-notifier: 1.15.0
   languageName: unknown
   linkType: soft
@@ -8157,7 +8157,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-cli@npm:^4.10.0":
+"webpack-cli@npm:4.10.0":
   version: 4.10.0
   resolution: "webpack-cli@npm:4.10.0"
   dependencies:
