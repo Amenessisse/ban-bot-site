@@ -1986,7 +1986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.0.0-beta.11":
+"@vue/devtools-api@npm:^6.0.0-beta.11, @vue/devtools-api@npm:^6.1.4":
   version: 6.4.4
   resolution: "@vue/devtools-api@npm:6.4.4"
   checksum: d4d1079202579eceb8efb503b695dead39d2da4d693419a4a3f4e1823358726325bc2912e15c580ef94128ed61f42be0ce6a23ac013967e04d971b0a7158a263
@@ -7314,9 +7314,9 @@ __metadata:
     stimulus: 3.1.0
     tailwindcss: 3.1.8
     tmi.js: 1.8.5
-    vue: ^3.2.41
+    vue: 3.2.41
     vue-loader: 17.0.0
-    vue-router: 3.6.5
+    vue-router: 4.1.5
     vue-template-compiler: 2.7.13
     vuex: 4.1.0
     webpack-cli: ^4.10.0
@@ -8298,10 +8298,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-router@npm:3.6.5":
-  version: 3.6.5
-  resolution: "vue-router@npm:3.6.5"
-  checksum: b014ba4cba6838a4a6b7a2352b18982c2fd8bbbd6287e09c510845895d28f1c141fefb88369d1875c0cb6c7336c8536f614c8d1f5ac1c8709d60b4f945c486fb
+"vue-router@npm:4.1.5":
+  version: 4.1.5
+  resolution: "vue-router@npm:4.1.5"
+  dependencies:
+    "@vue/devtools-api": ^6.1.4
+  peerDependencies:
+    vue: ^3.2.0
+  checksum: cafa2f4e14188bca0d4d45e05a901b6ff7bb3933010a6b2c9372bed7fa872bb2e18f1f033b23f540d3a75e1ecd6840b79a5ba5a714de01942d02e1e6cce88dec
   languageName: node
   linkType: hard
 
@@ -8315,7 +8319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.2.41":
+"vue@npm:3.2.41":
   version: 3.2.41
   resolution: "vue@npm:3.2.41"
   dependencies:
