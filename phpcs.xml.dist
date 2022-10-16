@@ -9,11 +9,7 @@
     <arg name="extensions" value="php"/>
 
     <rule ref="PSR12"/>
-    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
-    <rule ref="Generic.Formatting.SpaceAfterCast"/>
-    <rule ref="Generic.Formatting.SpaceAfterNot"/>
-    <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
-    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Doctrine"/>
 
     <file>bin/</file>
     <file>config/</file>
