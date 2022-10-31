@@ -1243,7 +1243,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.19.0, @babel/types@npm:^7.19.3, @babel/types@npm:^7.19.4, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
+"@babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.19.0, @babel/types@npm:^7.19.3, @babel/types@npm:^7.19.4, @babel/types@npm:^7.4.4":
   version: 7.19.4
   resolution: "@babel/types@npm:7.19.4"
   dependencies:
@@ -1251,6 +1251,17 @@ __metadata:
     "@babel/helper-validator-identifier": ^7.19.1
     to-fast-properties: ^2.0.0
   checksum: 4032f6407093f80dd4f4764be676f7527d2a5c0381586967cd79683cf8af01cdc16745a381b9cef045f702f0c9b0dffd880d84ee55dad59ba01bd23d5d52a8e0
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.8.3":
+  version: 7.20.0
+  resolution: "@babel/types@npm:7.20.0"
+  dependencies:
+    "@babel/helper-string-parser": ^7.19.4
+    "@babel/helper-validator-identifier": ^7.19.1
+    to-fast-properties: ^2.0.0
+  checksum: 8729b1114c707a03625cd79e3ae3a28d69b36ddcf804cb0a4599af226e5e9fad71665bdc0e56c43527ecfcabc545d9c797231f5ce718ae1ab52d31a57b6c2024
   languageName: node
   linkType: hard
 
@@ -1301,10 +1312,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hotwired/stimulus@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@hotwired/stimulus@npm:3.1.0"
-  checksum: 82d80b17aa8cd8b69e20da4cc86b768fd8c52d06b40c1606b92526fd405264a65c617d5c051445a5b91af05620ab4475b3c5adc2011ed8d787b4955f9e924845
+"@hotwired/stimulus@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@hotwired/stimulus@npm:3.1.1"
+  checksum: acb70e4b11495f125305171e67569f961b067059d71ecbeb0cacd794517bd2f3a9d9760c35e6ebcc098b8e083302a8511a8537bfec6bab7ed1fba950f653687e
   languageName: node
   linkType: hard
 
@@ -6961,7 +6972,7 @@ __metadata:
     regenerator-runtime: 0.13.10
     sass: 1.55.0
     sass-loader: 13.1.0
-    stimulus: 3.1.0
+    stimulus: 3.1.1
     tailwindcss: 3.1.8
     tmi.js: 1.8.5
     webpack-cli: 4.10.0
@@ -7369,13 +7380,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stimulus@npm:3.1.0":
-  version: 3.1.0
-  resolution: "stimulus@npm:3.1.0"
+"stimulus@npm:3.1.1":
+  version: 3.1.1
+  resolution: "stimulus@npm:3.1.1"
   dependencies:
-    "@hotwired/stimulus": ^3.1.0
+    "@hotwired/stimulus": ^3.1.1
     "@hotwired/stimulus-webpack-helpers": ^1.0.0
-  checksum: 468b511839ce112b8e5bca3234ff915f6a8f355677324a35496802d623d1226a63d9649d2119a03bc9aa78667a6149f4126f417c49f9242709dfb0efcfada188
+  checksum: 211bdabfa0cf01a8434bdd621303eaf2809481a8770bebeec54a32017f7c465b6a781ac95076aae2db899fdd84ea306884b9aebe102bf4aa8f289459389a6649
   languageName: node
   linkType: hard
 
