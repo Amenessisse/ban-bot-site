@@ -10,7 +10,7 @@
         "api-platform/core": "3.0.3",
         "composer/package-versions-deprecated": "1.11.99.3",
         "doctrine/annotations": "1.13.3",
-        "doctrine/doctrine-bundle": "2.7.0",
+        "doctrine/doctrine-bundle": "2.7.1",
         "doctrine/doctrine-migrations-bundle": "3.2.2",
         "doctrine/orm": "2.13.3",
         "nelmio/cors-bundle": "2.2.0",
