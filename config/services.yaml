@@ -29,7 +29,7 @@ services:
         $twitchId: '%env(TWITCH_ID)%'
         $twitchScope: '%env(TWITCH_API_SCOPE)%'
 
-    App\Controller\DashboardController:
+    App\Service\ApiTwitch:
         $twitchId: '%env(TWITCH_ID)%'
 
     App\Security\Twitch\TwitchUserProvider:

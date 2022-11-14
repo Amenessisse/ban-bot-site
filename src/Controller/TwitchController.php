@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\UserTwitch;
@@ -12,25 +14,20 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class TwitchController extends AbstractController
 {
-
-    private string $twitchDomain;
-    private string $twitchId;
-    private string $twitchScope;
-
-    public function __construct(string $twitchDomain, string $twitchId, string $twitchScope)
-    {
-        $this->twitchDomain = $twitchDomain;
-        $this->twitchId = $twitchId;
-        $this->twitchScope = $twitchScope;
+    public function __construct(
+        private readonly string $twitchDomain,
+        private readonly string $twitchId,
+        private readonly string $twitchScope,
+    ) {
     }
 
     #[Route('/login/twitch', name: 'app_twitch_login')]
-    public function index(#[CurrentUser] ?UserTwitch $user, CsrfTokenManagerInterface $csrfToken): RedirectResponse
+    public function index(#[CurrentUser] UserTwitch|null $user, CsrfTokenManagerInterface $csrfToken): RedirectResponse
     {
         if (! $user instanceof UserTwitch) {
             $urlLoginCheck = $this->generateUrl(
                 route: 'app_twitch_login_check',
-                referenceType: UrlGeneratorInterface::ABSOLUTE_URL
+                referenceType: UrlGeneratorInterface::ABSOLUTE_URL,
             );
 
             return new RedirectResponse(
@@ -39,7 +36,7 @@ class TwitchController extends AbstractController
                 '&redirect_uri=' . $urlLoginCheck .
                 '&response_type=code' .
                 '&scope=' . $this->twitchScope .
-                '&state=' . $csrfToken->getToken('twitch_token_csrf')
+                '&state=' . $csrfToken->getToken('twitch_token_csrf'),
             );
         }
 

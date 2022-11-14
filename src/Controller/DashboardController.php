@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
+use App\Service\ApiTwitch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,16 +13,14 @@ use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+use function array_merge;
 
 #[Route('/dashboard')]
 class DashboardController extends AbstractController
 {
-    private string $twitchId;
-
-    public function __construct(string $twitchId)
+    public function __construct(private readonly ApiTwitch $apiTwitch)
     {
-        $this->twitchId = $twitchId;
     }
 
     /**
@@ -30,48 +31,36 @@ class DashboardController extends AbstractController
      * @throws ClientExceptionInterface
      */
     #[Route('/', name: 'app_dashboard_index')]
-    public function board(HttpClientInterface $apiTwitch): Response
+    public function board(): Response
     {
-        $arraytest = [];
+        $usersBanList = [];
         do {
-            $usersBlocks = $apiTwitch->request(method: 'GET', url: 'moderation/banned', options: [
-                'auth_bearer' => $this->getUser()->getAccessToken(),
-                'headers' => [
-                    'Client-Id' => $this->twitchId,
-                ],
-                'query' => [
-                    'broadcaster_id' => $this->getUser()->getTwitchId(),
-                    'after' => $usersBlocks['pagination']['cursor'] ?? '',
-                    'first' => 100,
-                ]
+            $usersBlocks = $this->apiTwitch->get(url: 'moderation/banned', query: [
+                'broadcaster_id' => $this->getUser()->getTwitchId(),
+                'after' => $usersBlocks['pagination']['cursor'] ?? '',
+                'first' => 100,
             ])->toArray();
 
-            $arraytest[] = $usersBlocks['data'];
-            $cursor = $usersBlocks['pagination']['cursor'] ?? null;
+            $usersBanList[] = $usersBlocks['data'];
+            $cursor         = $usersBlocks['pagination']['cursor'] ?? null;
         } while ($cursor !== null);
 
-        $userDatas =  $apiTwitch->request('GET', 'users', options: [
-            'auth_bearer' => $this->getUser()->getaccessToken(),
-            'headers' => [
-                'Client-Id' => $this->twitchId,
-            ],
-            'query' => [
-                'login' => $this->getUser()->getLogin()
-            ],
+        $userDatas = $this->apiTwitch->get(url: 'users', query: [
+            'login' => $this->getUser()->getLogin(),
         ])->toArray();
 
-        $arraymerge = [];
-        foreach ($arraytest as $array) {
-            if ($arraymerge === []) {
-                $arraymerge = $array;
+        $usersBans = [];
+        foreach ($usersBanList as $users) {
+            if ($usersBans === []) {
+                $usersBans = $users;
                 continue;
             }
 
-            $arraymerge = array_merge($array, $arraymerge);
+            $usersBans = array_merge($users, $usersBans);
         }
 
         return $this->render('dashboard/dashboard.html.twig', [
-            'usersBlocks' => $arraymerge,
+            'usersBans' => $usersBans,
             'userDatas' => $userDatas,
         ]);
     }
