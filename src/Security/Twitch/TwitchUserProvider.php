@@ -6,6 +6,8 @@ namespace App\Security\Twitch;
 
 use App\Entity\UserTwitch;
 use App\Repository\UserRepository;
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -51,10 +53,11 @@ class TwitchUserProvider implements UserProviderInterface
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => $urlLoginCheck,
             ],
-        ]);
+        ])->toArray();
 
-        $token        = $dataToken->toArray()['access_token'];
-        $refreshToken = $dataToken->toArray()['refresh_token'];
+        $token        = $dataToken['access_token'];
+        $refreshToken = $dataToken['refresh_token'];
+        $expiresIn    = $dataToken['expires_in'];
 
         $validateData = $this->identityTwitch->request(
             method: 'GET',
@@ -79,6 +82,7 @@ class TwitchUserProvider implements UserProviderInterface
 
         $user->setAccessToken($token);
         $user->setRefreshToken($refreshToken);
+        $user->setExpiresIn((new DateTime())->add(new DateInterval('PT1H')));
         $this->entityManager->flush();
 
         return $user;

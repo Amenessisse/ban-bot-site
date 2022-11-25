@@ -31,6 +31,7 @@ services:
 
     App\Service\ApiTwitch:
         $twitchId: '%env(TWITCH_ID)%'
+        $twitchSecret: '%env(TWITCH_SECRET)%'
 
     App\Security\Twitch\TwitchUserProvider:
         $twitchId: '%env(TWITCH_ID)%'
