@@ -18,6 +18,7 @@ security:
             provider: twitch
             logout:
                 path: app_logout
+                invalidate_session: false
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -49,6 +50,9 @@ class UserTwitch implements UserInterface
 
     #[Column(name: 'twitch_refresh_token', type: 'string', nullable: true)]
     private string|null $refreshToken;
+
+    #[Column(name: 'expires_in', type: 'datetime', nullable: false)]
+    private DateTime $expiresIn;
 
     public function getId(): int
     {
@@ -130,6 +134,18 @@ class UserTwitch implements UserInterface
     public function setRefreshToken(string|null $refreshToken): UserTwitch
     {
         $this->refreshToken = $refreshToken;
+
+        return $this;
+    }
+
+    public function getExpiresIn(): DateTime
+    {
+        return $this->expiresIn;
+    }
+
+    public function setExpiresIn(DateTime $expiresIn): UserTwitch
+    {
+        $this->expiresIn = $expiresIn;
 
         return $this;
     }
