@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\UserTwitch;
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -19,9 +23,13 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+use function hash;
+use function json_encode;
+
 class ApiTwitch
 {
     public function __construct(
+        private readonly CacheInterface $cache,
         private readonly HttpClientInterface $apiTwitch,
         private readonly HttpClientInterface $identityTwitch,
         private readonly Security $security,
@@ -81,11 +89,10 @@ class ApiTwitch
 
         $token        = $response->toArray()['access_token'];
         $refreshToken = $response->toArray()['refresh_token'];
-        $expiresIn    = $response->toArray()['expires_in'];
 
         $user->setAccessToken($token);
         $user->setRefreshToken($refreshToken);
-        $user->setExpiresIn($expiresIn);
+        $user->setExpiresIn((new DateTime())->add(new DateInterval('PT1H')));
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
@@ -95,8 +102,9 @@ class ApiTwitch
      *
      * @throws Exception
      * @throws TransportExceptionInterface|DecodingExceptionInterface
+     * @throws InvalidArgumentException
      */
-    public function get(string $url, array $query): ResponseInterface
+    public function get(string $url, array $query): array
     {
         $user = $this->security->getUser();
 
@@ -110,21 +118,28 @@ class ApiTwitch
             throw new Exception('Your token is not valid : ' . $exception->getMessage());
         }
 
-        $response = $this->apiTwitch->request(method: 'GET', url: $url, options: [
-            'auth_bearer' => $user->getAccessToken(),
-            'headers' => ['Client-Id' => $this->twitchId],
-            'query' => $query,
-        ]);
+        return $this->cache->get(
+            hash('sha256', $url . json_encode($query)),
+            function (CacheItemInterface $cacheItem) use ($url, $user, $query): array {
+                $cacheItem->expiresAfter(60);
 
-        if ($response->getStatusCode() === Response::HTTP_UNAUTHORIZED) {
-            try {
-                $this->refreshToken($user);
-            } catch (TransportExceptionInterface $exception) {
-                throw new Exception('impossible refresh token : ' . $exception->getMessage());
-            }
-        }
+                $response = $this->apiTwitch->request(method: 'GET', url: $url, options: [
+                    'auth_bearer' => $user->getAccessToken(),
+                    'headers' => ['Client-Id' => $this->twitchId],
+                    'query' => $query,
+                ]);
 
-        return $response;
+                if ($response->getStatusCode() === Response::HTTP_UNAUTHORIZED) {
+                    try {
+                        $this->refreshToken($user);
+                    } catch (TransportExceptionInterface $exception) {
+                        throw new Exception('impossible refresh token : ' . $exception->getMessage());
+                    }
+                }
+
+                return $response->toArray();
+            },
+        );
     }
 
     /**
@@ -161,5 +176,12 @@ class ApiTwitch
         }
 
         return $response;
+    }
+
+    public function getImageProfile(UserTwitch $user): string
+    {
+        $userDatas = $this->get(url: 'users', query: ['id' => $user->getTwitchId()]);
+
+        return $userDatas['data'][0]['profile_image_url'];
     }
 }
