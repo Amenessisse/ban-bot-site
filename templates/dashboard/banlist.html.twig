@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col space-y-16 mt-14">
+        {% block alert %}
+            {% include('dashboard/alert/_alert.html.twig') %}
+        {% endblock %}
+        {# Barre de recherche #}
+        <div class="flex justify-center">
+            <label>
+                <input class="bg-white shadow-inner rounded-full mr-10 text-center" style="width: 670px; height: 30px;" placeholder="Rechercher un utilisateur...">
+            </label>
+        </div>
+        {# List des bannis #}
+        <div class="flex place-items-center justify-center">
+            <div class="grid gap-10 grid-cols-5 grid-flow-row columns-2">
+                {% for userBan in usersBans | sort((a, b) => a.user_login <=> b.user_login) %}
+                    <div class="drop-shadow">
+                        <div class="bg-white drop-shadow-sm flex place-items-center justify-between">
+                            <p class="pl-2 font-bold text-gray-700">{{ userBan.user_name | length > 16 ? userBan.user_name  | slice(0,16) ~ '...' : userBan.user_name}}</p>
+                            <i class="fa-solid fa-sm fa-rectangle-xmark text-red-600 pl-1 pr-2"></i>
+                        </div>
+                        <div class="bg-gray-50 pl-2 pr-2 text-gray-600">
+                            <p>{{ userBan.user_id }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% if cursor is not null %}
+        <div>
+            <a href="{{ path('app_banlist_index', {'cursor': cursor ?? ''}) }}"><button type="button">Suivant</button></a>
+        </div>
+        {% endif %}
+        <div class="flex justify-center w-36 h-12">
+            <form method="post">
+            <button type="submit" formaction="{{ path('app_banlist_share') }}" class="flex h-full px-2 bg-teal-400 shadow border rounded-lg border-green-400 ">
+                <span class="flex-1 align-middle h-full text-lg font-bold text-center text-gray-50">Partager la liste</span>
+            </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Entity(repositoryClass: UserRepository::class, readOnly: false)]
@@ -32,6 +33,9 @@ class UserTwitch implements UserInterface
         GeneratedValue(strategy: 'IDENTITY'),
     ]
     private int $id;
+
+    #[ManyToOne(targetEntity: BannedUser::class, inversedBy: 'twitchUsers')]
+    private BannedUser $bannedUser;
 
     #[Column(name: 'twitch_id', type: 'string', nullable: true)]
     private string $twitchId;
@@ -146,6 +150,18 @@ class UserTwitch implements UserInterface
     public function setExpiresIn(DateTime $expiresIn): UserTwitch
     {
         $this->expiresIn = $expiresIn;
+
+        return $this;
+    }
+
+    public function getBannedUser(): BannedUser
+    {
+        return $this->bannedUser;
+    }
+
+    public function setBannedUser(BannedUser $bannedUser): UserTwitch
+    {
+        $this->bannedUser = $bannedUser;
 
         return $this;
     }
