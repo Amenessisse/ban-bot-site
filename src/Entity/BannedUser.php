@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 
 #[Entity(repositoryClass: BannedUserRepository::class, readOnly: false)]
 #[ApiResource(shortName: 'bannedUser')]
@@ -20,14 +21,20 @@ class BannedUser
     ]
     private int $id;
 
-    #[Column(name: 'twitch_id', type: 'integer', nullable: false)]
-    private int $twitchId;
+    #[OneToMany(mappedBy: 'bannedUser', targetEntity: UserTwitch::class)]
+    private UserTwitch $twitchUsers;
+
+    #[Column(name: 'twitch_id', type: 'string', nullable: false)]
+    private string $twitchId;
 
     #[Column(name: 'twitch_login', type: 'string', nullable: true)]
     private string $login;
 
     #[Column(name: 'twitch_username', type: 'string', nullable: true)]
     private string $username;
+
+    #[Column(name: 'counter', type: 'integer', nullable: false)]
+    private int $counter;
 
     public function getId(): int
     {
@@ -37,17 +44,19 @@ class BannedUser
     public function setId(int $id): BannedUser
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getTwitchId(): int
+    public function getTwitchId(): string
     {
         return $this->twitchId;
     }
 
-    public function setTwitchId(int $twitchId): BannedUser
+    public function setTwitchId(string $twitchId): BannedUser
     {
         $this->twitchId = $twitchId;
+
         return $this;
     }
 
@@ -59,6 +68,7 @@ class BannedUser
     public function setLogin(string $login): BannedUser
     {
         $this->login = $login;
+
         return $this;
     }
 
@@ -70,6 +80,31 @@ class BannedUser
     public function setUsername(string $username): BannedUser
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getCounter(): int
+    {
+        return $this->counter;
+    }
+
+    public function setCounter(int $counter): BannedUser
+    {
+        $this->counter = $counter;
+
+        return $this;
+    }
+
+    public function getTwitchUsers(): UserTwitch
+    {
+        return $this->twitchUsers;
+    }
+
+    public function setTwitchUsers(UserTwitch $twitchUsers): BannedUser
+    {
+        $this->twitchUsers = $twitchUsers;
+
         return $this;
     }
 }

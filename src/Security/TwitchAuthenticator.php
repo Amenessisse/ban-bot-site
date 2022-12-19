@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security;
 
 use App\Entity\UserTwitch;
@@ -14,16 +16,15 @@ use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
+use function strtr;
+
 class TwitchAuthenticator extends AbstractAuthenticator
 {
-    private TwitchUserProvider $twitchUserProvider;
-
-    public function __construct(TwitchUserProvider $twitchUserProvider)
+    public function __construct(private TwitchUserProvider $twitchUserProvider)
     {
-        $this->twitchUserProvider = $twitchUserProvider;
     }
 
-    public function supports(Request $request): ?bool
+    public function supports(Request $request): bool|null
     {
         return $request->query->get('code') !== null;
     }
@@ -36,19 +37,22 @@ class TwitchAuthenticator extends AbstractAuthenticator
             return new SelfValidatingPassport(
                 new UserBadge($code, function () use ($code): UserTwitch {
                     return $this->twitchUserProvider->loadUserByCode($code);
-                })
+                }),
             );
         }
 
         throw new CustomUserMessageAuthenticationException('No API token provided');
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token,
+        string $firewallName,
+    ): Response|null {
         return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?JsonResponse
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
     {
         $data = [
             'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),

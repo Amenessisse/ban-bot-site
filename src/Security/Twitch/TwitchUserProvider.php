@@ -57,7 +57,6 @@ class TwitchUserProvider implements UserProviderInterface
 
         $token        = $dataToken['access_token'];
         $refreshToken = $dataToken['refresh_token'];
-        $expiresIn    = $dataToken['expires_in'];
 
         $validateData = $this->identityTwitch->request(
             method: 'GET',
