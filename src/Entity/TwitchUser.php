@@ -7,11 +7,17 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Entity(repositoryClass: UserRepository::class, readOnly: false)]
@@ -23,19 +29,24 @@ class UserTwitch implements UserInterface
     {
         $this->email    = $data['email'];
         $this->login    = $data['login'];
-        $this->twitchId = $data['id'];
+//        $this->twitchId = $data['id'];
         $this->username = $data['display_name'];
+        $this->bans = new ArrayCollection();
+        $this->broadcasters = new ArrayCollection();
     }
 
+    // TODO C'est quoi la taille des id twitch ? Mettre une taille car sinon varchar 255 partout
     #[
         Id,
-        Column(name: 'id', type: 'integer', nullable: false),
+        Column(name: 'id', type: 'string', nullable: false),
         GeneratedValue(strategy: 'IDENTITY'),
     ]
     private int $id;
 
-    #[ManyToOne(targetEntity: BannedUser::class, inversedBy: 'twitchUsers')]
-    private BannedUser $bannedUser;
+//    #[ManyToMany(targetEntity: BannedUser::class, mappedBy: 'twitchUsers')]
+//    #[JoinTable('twitch_users_banned_users')]
+//    /** @var array<int, BannedUser> $bannedUsers */
+//    private array $bannedUsers;
 
     #[Column(name: 'twitch_id', type: 'string', nullable: true)]
     private string $twitchId;
@@ -46,6 +57,7 @@ class UserTwitch implements UserInterface
     #[Column(name: 'twitch_username', type: 'string', nullable: true)]
     private string $username;
 
+    // TODO par défault en false
     #[Column(name: 'twitch_email', type: 'string', nullable: false)]
     private string $email;
 
@@ -70,17 +82,17 @@ class UserTwitch implements UserInterface
         return $this;
     }
 
-    public function getTwitchId(): string
-    {
-        return $this->twitchId;
-    }
-
-    public function setTwitchId(string $twitchId): UserTwitch
-    {
-        $this->twitchId = $twitchId;
-
-        return $this;
-    }
+//    public function getTwitchId(): string
+//    {
+//        return $this->twitchId;
+//    }
+//
+//    public function setTwitchId(string $twitchId): UserTwitch
+//    {
+//        $this->twitchId = $twitchId;
+//
+//        return $this;
+//    }
 
     public function getLogin(): string
     {
@@ -154,17 +166,25 @@ class UserTwitch implements UserInterface
         return $this;
     }
 
-    public function getBannedUser(): BannedUser
-    {
-        return $this->bannedUser;
-    }
+//    /**
+//     * @return array
+//     */
+//    public function getBannedUsers(): array
+//    {
+//        return $this->bannedUsers;
+//    }
+//
+//    /**
+//     * @param array $bannedUsers
+//     * @return UserTwitch
+//     */
+//    public function setBannedUsers(array $bannedUsers): UserTwitch
+//    {
+//        $this->bannedUsers = $bannedUsers;
+//        return $this;
+//    }
 
-    public function setBannedUser(BannedUser $bannedUser): UserTwitch
-    {
-        $this->bannedUser = $bannedUser;
 
-        return $this;
-    }
 
     /** @return array<int, string> */
     public function getRoles(): array

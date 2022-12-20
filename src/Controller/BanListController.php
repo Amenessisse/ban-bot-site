@@ -107,7 +107,7 @@ class BanListController extends AbstractController
                 $usersBlocks = $this->apiTwitch->get(url: 'moderation/banned', query: [
                     'broadcaster_id' => $user->getTwitchId(),
                     'after' => $usersBlocks['pagination']['cursor'] ?? '',
-                    'first' => 10,
+                    'first' => 100,
                 ]);
             } catch (Throwable $exception) {
                 $this->addFlash('message_error', 'Token error : ' . $exception->getMessage());
@@ -121,16 +121,21 @@ class BanListController extends AbstractController
 
         foreach ($banListUsers as $userBan) {
             // TODO : condition d'enregistrement (si user a déja enregistré, alors ne pas prendre en compte)
-            $user = new BannedUser();
-            $user->setTwitchId($userBan['user_id']);
-            $user->setLogin($userBan['user_login']);
-            $user->setUsername($userBan['user_name']);
+            $twitchBan = new TwitchBan();
+            // Tu vas avoir peut-être un soucis ici, il faudra peut-être flush dans ton create pour avoir l'id
+            $twitchUser = $this->twitchUserRepository->findOrCreate($userBan);
+            $twitchBan->setUser($twitchUser);
+            $twitchBan->setLogin($userBan['user_login']);
+            $twitchBan->setUsername($userBan['user_name']);
+            $twitchBan->setBroadcaster($user);
+//            $twitchBan->setTwitchUsers($user);
 
-            //TODO : condition de comptage
-            $user->setCounter(1);
-
-            $this->entityManager->persist($user);
+            $this->entityManager->persist($twitchBan);
         }
+
+//        $user->setBannedUsers($userBanList);
+
+        $this->entityManager->persist($user);
 
         $this->entityManager->flush();
 

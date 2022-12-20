@@ -1,0 +1,8 @@
+framework:
+  rate_limiter:
+    twitch_service:
+#      TODO Renseigne toi sur les policy : fixed_window, sliding_window, token_bucket
+      policy: 'fixed_window'
+      limit: 700
+      interval: '60 seconds'
+      # rate: { interval: '15 minutes', amount: 500 }

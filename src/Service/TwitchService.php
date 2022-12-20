@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\UserTwitch;
+use App\Entity\TwitchUser;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,7 +46,8 @@ class ApiTwitch
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function checkValidateToken(UserTwitch $user): UserTwitch
+    #[RateLimiting('twitch_service')]
+    public function checkValidateToken(TwitchUser $user): TwitchUser
     {
         $now = new DateTime();
 
@@ -71,7 +72,7 @@ class ApiTwitch
      * @throws TransportExceptionInterface
      * @throws DecodingExceptionInterface
      */
-    public function refreshToken(UserTwitch $user): void
+    public function refreshToken(TwitchUser $user): void
     {
         $response = $this->identityTwitch->request(method: 'POST', url: 'oauth2/token', options: [
             'headers' => ['Accept' => 'application/json'],
@@ -108,7 +109,7 @@ class ApiTwitch
     {
         $user = $this->security->getUser();
 
-        if (! $user instanceof UserTwitch) {
+        if (! $user instanceof TwitchUser) {
             throw new Exception('user bad authent');
         }
 
@@ -152,7 +153,7 @@ class ApiTwitch
     {
         $user = $this->security->getUser();
 
-        if (! $user instanceof UserTwitch) {
+        if (! $user instanceof TwitchUser) {
             throw new Exception('user bad authent');
         }
 
@@ -178,7 +179,7 @@ class ApiTwitch
         return $response;
     }
 
-    public function getImageProfile(UserTwitch $user): string
+    public function getImageProfile(TwitchUser $user): string
     {
         $userDatas = $this->get(url: 'users', query: ['id' => $user->getTwitchId()]);
 

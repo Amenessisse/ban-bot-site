@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\UserTwitch;
-use App\Repository\BannedUserRepository;
-use App\Service\ApiTwitch;
+use App\Entity\TwitchUser;
+use App\Repository\TwitchBanRepository;
+use App\Service\TwitchService;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,8 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     public function __construct(
-        private readonly BannedUserRepository $bannedUserRepository,
-        private readonly ApiTwitch $apiTwitch,
+        private readonly TwitchBanRepository $bannedUserRepository,
+        private readonly TwitchService       $twitchService,
     ) {
     }
 
