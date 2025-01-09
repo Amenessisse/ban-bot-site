@@ -1582,9 +1582,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@symfony/stimulus-bridge@npm:3.2.1":
-  version: 3.2.1
-  resolution: "@symfony/stimulus-bridge@npm:3.2.1"
+"@symfony/stimulus-bridge@npm:3.2.3":
+  version: 3.2.3
+  resolution: "@symfony/stimulus-bridge@npm:3.2.3"
   dependencies:
     "@hotwired/stimulus-webpack-helpers": ^1.0.1
     "@types/webpack-env": ^1.16.4
@@ -1593,7 +1593,7 @@ __metadata:
     schema-utils: ^3.0.0
   peerDependencies:
     "@hotwired/stimulus": ^3.0
-  checksum: f30b30099b36ff0447c3223863d72d3a03ffa12ddac4bf657e90ee3adaf9ffd29328e444ce8716c8ed1c81379552124ed9c0e6feb6ed4a654f35859806043ada
+  checksum: 88521bc7183ecf2c550b8acf7fd532a72bf1230d01ea26fcf40281d8b8abad62d647792e8233436ecb91010ac4f5262414501d4bffa5e24cb72ae2e67e578b39
   languageName: node
   linkType: hard
 
@@ -6982,7 +6982,7 @@ __metadata:
     "@babel/preset-react": 7.0.0
     "@fortawesome/fontawesome-free": 6.2.1
     "@popperjs/core": 2.11.6
-    "@symfony/stimulus-bridge": 3.2.1
+    "@symfony/stimulus-bridge": 3.2.3
     "@symfony/webpack-encore": 4.1.1
     autoprefixer: 10.4.13
     axios: 1.1.3
