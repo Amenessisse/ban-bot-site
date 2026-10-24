@@ -3,7 +3,7 @@
         "@babel/preset-react": "7.0.0",
         "@popperjs/core": "2.11.6",
         "@symfony/stimulus-bridge": "3.2.1",
-        "@symfony/webpack-encore": "4.1.1",
+        "@symfony/webpack-encore": "4.7.0",
         "core-js": "3.26.1",
         "eslint": "8.28.0",
         "eslint-config-airbnb-base": "15.0.0",
